@@ -45,21 +45,23 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard</p>
             </a>
-          </li>          
+          </li>     
+          @role('Admin')     
           <li class="nav-item">
             <a href="{{ route('barang.index') }}" class="nav-link {{ request()->is('barang') ? 'active' : '' }}">
               <i class="nav-icon fas fa-briefcase"></i>
               <p>Data Barang</p>
             </a>
           </li>
+          
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->is('gedung') ? 'active' : '' }}">
+            <a href="{{ route('admin.peminjaman') }}" class="nav-link {{ request()->is('admin/peminjaman') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>Data Peminjaman</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->is('gedung') ? 'active' : '' }}">
+            <a href="{{ route('admin.pengembalian') }}" class="nav-link {{ request()->is('admin/pengembalian') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>Data Pengembalian</p>
             </a>
@@ -70,12 +72,29 @@
               <p>Data Pengguna</p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="#" class="nav-link {{ request()->is('gedung') ? 'active' : '' }}">
               <i class="nav-icon fas fa-file"></i>
               <p>Data Laporan</p>
             </a>
           </li>
+          @endrole
+
+          @hasanyrole('Guru|Siswa|Pengawas')
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ request()->is('gedung') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p>Ajukan Peminjaman</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ request()->is('gedung') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p>Ajukan Pengembalian</p>
+            </a>
+          </li>
+          @endhasanyrole
 
           <li class="nav-header">PENGATURAN</li>
 

@@ -1,5 +1,3 @@
-
-
 @extends('layouts.dev.app')
 
 @section('header')

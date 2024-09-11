@@ -83,7 +83,7 @@
 
           @hasanyrole('Guru|Siswa|Pengawas')
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->is('gedung') ? 'active' : '' }}">
+            <a href="{{ route ('pengajuann.index')}}" class="nav-link {{ request()->is('pengajuann.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>Ajukan Peminjaman</p>
             </a>

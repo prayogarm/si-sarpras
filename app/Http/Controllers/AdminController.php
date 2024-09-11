@@ -35,4 +35,30 @@ class AdminController extends Controller
         // Return view dengan data pengembalian
         return view('admin.pengembalian', compact('pengembalian'));
     }
+
+    public function approve($id)
+    {
+        // Cari pengajuan berdasarkan id
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        // Set status menjadi approved
+        $pengajuan->status = 'approved';
+        $pengajuan->save();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('admin.peminjaman')->with('success', 'Pengajuan telah disetujui.');
+    }
+
+    public function reject($id)
+    {
+        // Cari pengajuan berdasarkan id
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        // Set status menjadi rejected
+        $pengajuan->status = 'rejected';
+        $pengajuan->save();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('admin.peminjaman')->with('success', 'Pengajuan telah ditolak.');
+    }
 }

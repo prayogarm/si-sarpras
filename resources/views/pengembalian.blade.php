@@ -3,7 +3,7 @@
 @section('header')
 <div class="container-fluid">
   <div class="row col-sm-6 mb-2 mt-2">
-      <h1>Data Peminjaman Barang</h1>
+      <h1>Data Pengembalian Barang</h1>
   </div>
 </div>
 @endsection
@@ -33,17 +33,17 @@
                 <th style="width: 15px">NO</th>
                 <th>Nama Barang</th>
                 <th>Nama Peminjam</th>
-                <th>Tanggal Pengajuan</th>
+                <th>Tanggal Pengembalian</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($pengajuans as $key => $row)     
+              @foreach ($pengembalians as $key => $row)     
                 <tr>
                   <td>{{ ++$key }}</td>
                   <td>{{ $row->barang->nama_barang }}</td>
                   <td>{{ $row->user->name }}</td>
-                  <td>{{ $row->tanggal_pengajuan }}</td>
+                  <td>{{ $row->tanggal_pengembalian }}</td>
                   <td>{{ ucfirst($row->status) }}</td>
                   <td style="text-align: center">
                       <div class="d-sm-inline-block">
@@ -72,23 +72,24 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Buat Pengajuan Barang</h4>
+        <h4 class="modal-title">Ajukan Pengembalian Barang</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('pengajuann.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('pengembalian.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
-          <select name="barang_id" id="barang_id" class="form-control" required>
+          <label class="">Pilih Peminjaman</label>
+          <select name="pengajuan_id" id="pengajuan_id" class="form-control" required>
             <option value="">-- Pilih Barang --</option>
-            @foreach($barangs as $barang)
-                <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
+            @foreach($pengajuans as $pengajuan)
+                <option value="{{ $pengajuan->id }}">{{ $pengajuan->barang->nama_barang }} (Dipinjam pada {{ $pengajuan->tanggal_pengajuan }})</option>
             @endforeach
           </select>
           <div class="form-group">
-            <label for="title">Tanggal Pengajuan</label>
-            <input type="date" class="form-control" name="tanggal_pengajuan" required>
+            <label class="mt-3">Tanggal Pengembalian</label>
+            <input type="date" class="form-control" name="tanggal_pengembalian" required>
           </div>
       </div>
           <div class="modal-footer justify-content-between">

@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PengajuannController;
+use App\Http\Controllers\PengembalianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +45,5 @@ Route::group(['middleware' => ['auth']], function() {
 Route::middleware('auth')->group(function () {
     // Route::resource('/peminjaman', [PengajuanController::class, 'index'])->name('peminjaman');
     Route::resource('pengajuann', PengajuannController::class);
+    Route::resource('pengembalian', PengembalianController::class);
 });

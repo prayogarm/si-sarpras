@@ -89,7 +89,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->is('gedung') ? 'active' : '' }}">
+            <a href="{{route('pengembalian.index')}}" class="nav-link {{ request()->is('pengembalian.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book"></i>
               <p>Ajukan Pengembalian</p>
             </a>

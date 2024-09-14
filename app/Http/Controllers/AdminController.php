@@ -61,4 +61,30 @@ class AdminController extends Controller
         // Redirect kembali dengan pesan sukses
         return redirect()->route('admin.peminjaman')->with('success', 'Pengajuan telah ditolak.');
     }
+
+    public function approvepengembalian($id)
+    {
+        // Cari pengembalian berdasarkan id
+        $pengembalian = Pengembalian::findOrFail($id);
+
+        // Set status menjadi approved
+        $pengembalian->status = 'approved';
+        $pengembalian->save();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('admin.pengembalian')->with('success', 'Pengembalian telah disetujui.');
+    }
+
+    public function rejectpengembalian($id)
+    {
+        // Cari pengembalian berdasarkan id
+        $pengembalian = Pengembalian::findOrFail($id);
+
+        // Set status menjadi rejected
+        $pengembalian->status = 'rejected';
+        $pengembalian->save();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('admin.pengembalian')->with('success', 'Pengembalian telah ditolak.');
+    }
 }

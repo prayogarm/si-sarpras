@@ -47,17 +47,19 @@
                   <td>{{ $row->tanggal_pengembalian }}</td>
                   <td>{{ $row->status }}</td>
                   <td style="text-align: center">
-                      <div class="d-sm-inline-block">
-                        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#editModal{{$row->id}}">
-                            <i class="fas fa-pen"></i>
-                        </a>
-                      </div>
+                    @if($row->status == 'pending')
+                        <form action="{{ route('admin.pengembalian.approve', $row->id) }}" method="POST" style="display:inline-block;">
+                          @csrf
+                          <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                        </form>
 
-                      <div class="d-sm-inline-block">
-                        <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal{{$row->id}}">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                      </div>
+                        <form action="{{ route('admin.pengembalian.reject', $row->id) }}" method="POST" style="display:inline-block;">
+                          @csrf
+                          <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                        </form>
+                      @else
+                        <span class="badge badge-info">{{ ucfirst($row->status) }}</span>
+                      @endif
                   </td>
                 </tr>
               @endforeach
@@ -69,7 +71,7 @@
   </div>
 </div>
 
-
+@endsection
 @push('script')
 <script>
   $(function () {
@@ -80,5 +82,3 @@
   });
 </script>
 @endpush
-
-@endsection

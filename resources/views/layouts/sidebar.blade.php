@@ -37,17 +37,17 @@
                 <span>Data Barang</span></a>
         </li>
         <li class="nav-item {{ request()->is('admin/peminjaman') ? 'active' : '' }}">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="{{ route('admin.peminjaman') }}">
                 <i class="fas fa-fw fa-arrow-left"></i>
                 <span>Data Peminjaman</span></a>
         </li>
         <li class="nav-item {{ request()->is('admin/pengembalian') ? 'active' : '' }}">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="{{ route('admin.pengembalian') }}">
                 <i class="fas fa-fw fa-arrow-right"></i>
                 <span>Data Pengembalian</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->is('users') ? 'active' : '' }}" href="charts.html">
+        <li class="nav-item {{ request()->is('admin/users') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('users.index') }}">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Data Pengguna</span></a>
         </li>

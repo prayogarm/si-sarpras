@@ -37,11 +37,12 @@ Route::middleware('auth', 'role:Admin')->prefix('admin')->group(function () {
     Route::post('/peminjaman/{id}/reject', [AdminController::class, 'reject'])->name('admin.peminjaman.reject');
     Route::post('/pengembalian/{id}/approve', [AdminController::class, 'approvepengembalian'])->name('admin.pengembalian.approve');
     Route::post('/pengembalian/{id}/reject', [AdminController::class, 'rejectpengembalian'])->name('admin.pengembalian.reject');
+    
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
 });
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);    
     Route::resource('barang', BarangController::class);
 });
 

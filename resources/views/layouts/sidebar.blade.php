@@ -15,8 +15,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('home')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -57,16 +57,29 @@
                 <i class="fas fa-fw fa-book"></i>
                 <span>Data Laporan</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseTwo" class="collapse {{ request()->is('admin/laporan/peminjaman') ? 'show' : '' }} {{ request()->is('admin/laporan/pengembalian') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Cetak Data Laporan:</h6>
-                    <a class="collapse-item" href="buttons.html">Laporan Peminjam</a>
-                    <a class="collapse-item" href="cards.html">Laporan Pengembalian</a>
+                    <a class="collapse-item {{ request()->is('admin/laporan/peminjaman') ? 'active' : '' }}" href="{{ route('admin.laporan.peminjaman') }}">Laporan Peminjam</a>
+                    <a class="collapse-item {{ request()->is('admin/laporan/pengembalian') ? 'active' : '' }}" href="{{ route('admin.laporan.pengembalian') }}">Laporan Pengembalian</a>
                 </div>
             </div>
         </li>
     @endrole
-    <!-- Divider -->
+
+    @hasanyrole('Guru|Siswa|Pengawas')
+        <li class="nav-item {{ request()->is('pengajuann.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route ('pengajuann.index')}}">
+                <i class="fas fa-fw fa-arrow-right"></i>
+                <span>Ajukan Peminjaman</span></a>
+        </li>
+        <li class="nav-item {{ request()->is('pengembalian.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route ('pengembalian.index')}}">
+                <i class="fas fa-fw fa-arrow-left"></i>
+                <span>Ajukan Pengembalian</span></a>
+        </li>
+    @endhasanyrole
+    
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->

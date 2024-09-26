@@ -1,74 +1,54 @@
-@extends('layouts.dev.app')
-
-@section('header')
-<div class="container-fluid">
-  <div class="row col-sm-6 mb-2 mt-2">
-      <h1>Data Pengembalian Barang</h1>
-  </div>
-</div>
-@endsection
+@extends('layouts.app')
 
 @section('content')
 
-<div class="container">
-  <div class="row"> 
-    <div class="col-lg-12">
-      @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>	
-          <strong>{{ $message }}</strong>
-        </div>
-      @endif
-      <div class="card card-defalt card-outline">
-        <div class="card-header">
-          <a class="btn btn-sm btn-info card-title m-0" type="button" data-toggle="modal" data-target="#addModal">
-            Tambah Data
-          </a>
-        </div>
-                        
-        <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th style="width: 15px">NO</th>
-                <th>Nama Barang</th>
-                <th>Nama Peminjam</th>
-                <th>Tanggal Pengembalian</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($pengembalians as $key => $row)     
-                <tr>
-                  <td>{{ ++$key }}</td>
-                  <td>{{ $row->barang->nama_barang }}</td>
-                  <td>{{ $row->user->name }}</td>
-                  <td>{{ $row->tanggal_pengembalian }}</td>
-                  <td>{{ ucfirst($row->status) }}</td>
-                  <td style="text-align: center">
-                      <div class="d-sm-inline-block">
-                        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#editModal{{$row->id}}">
-                            <i class="fas fa-pen"></i>
-                        </a>
-                      </div>
+<div class="container-fluid">
 
-                      <div class="d-sm-inline-block">
-                        <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal{{$row->id}}">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                      </div>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody> 
-          </table>
-        </div>
-      </div>
+  <h1 class="h3 mb-2 text-gray-800">Data Pengembalian</h1>
+  @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+    <button type="button" class="close" data-dismiss="alert">×</button>	
+      <strong>{{ $message }}</strong>
     </div>
+  @endif
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a class="btn btn-sm btn-info card-title m-0" type="button" data-toggle="modal" data-target="#addModal">
+          Tambah Data
+        </a>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                      <tr>
+                        <th style="width: 15px">NO</th>
+                        <th>Nama Barang</th>
+                        <th>Nama Peminjam</th>
+                        <th>Tanggal Pengembalian</th>
+                        <th>Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($pengembalians as $key => $row)     
+                      <tr>
+                        <td>{{ ++$key }}</td>
+                        <td>{{ $row->barang->nama_barang }}</td>
+                        <td>{{ $row->user->name }}</td>
+                        <td>{{ $row->tanggal_pengembalian }}</td>
+                        <td>{{ ucfirst($row->status) }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+              </table>
+          </div>
+      </div>
   </div>
 </div>
 
-<div class="modal fade" id="addModal">
+<div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -93,8 +73,8 @@
           </div>
       </div>
           <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancle</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
           </div>
         </form>
     </div>

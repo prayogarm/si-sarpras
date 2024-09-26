@@ -16,7 +16,7 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
       <div class="card-header py-3">
-          <h6 class="btn btn-sm btn-primary m-0 font-weight-bold text-light" type="button" data-toggle="modal" data-target="#addModal">Tambah Data</h6>
+          <a class="btn btn-sm btn-primary m-0 font-weight-bold text-light" href="{{route('users.create')}}">Tambah Pengguna</a>
       </div>
       <div class="card-body">
           <div class="table-responsive">
@@ -65,7 +65,7 @@
   </div>
 
 </div>
-{!! $data->render() !!}
+
 {{-- <div class="modal fade" id="addModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -76,15 +76,31 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
-            <label for="title">Nama Gedung</label>
+            <label for="title">Nama Lengkap</label>
             <input type="text" class="form-control" name="name" required>
           </div>
           <div class="form-group">
-            <label for="title">Nama Gedung</label>
-            <input type="text" class="form-control" name="detail" required>
+            <label for="title">Email</label>
+            <input type="text" class="form-control" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="title">Password</label>
+            <input type="text" class="form-control" name="password" required>
+          </div>
+          <div class="form-group">
+            <label for="title">Konfirmasi Password</label>
+            <input type="text" class="form-control" name="confirm-password" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Peran</label>
+              <select class="form-control" id="exampleFormControlSelect1">
+                @foreach ($roles as $item)
+                  <option name="roles">{{$item->name}}</option>
+                @endforeach
+              </select>
           </div>
       </div>
           <div class="modal-footer justify-content-between">

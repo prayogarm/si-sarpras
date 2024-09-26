@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function peminjaman()
     {
         // Mendapatkan semua data peminjaman dengan relasi user dan barang
-        $pengajuan = Pengajuan::with(['user', 'barang'])->get();
+        $pengajuan = Pengajuan::with(['user', 'barang'])->orderBy('created_at', 'desc')->get();
 
         // Return view dengan data peminjaman
         return view('admin.peminjaman', compact('pengajuan'));
@@ -30,7 +30,7 @@ class AdminController extends Controller
     public function pengembalian()
     {
         // Mendapatkan semua data pengembalian dengan relasi user, barang, dan pengajuan
-        $pengembalian = Pengembalian::with(['user', 'barang', 'pengajuan'])->get();
+        $pengembalian = Pengembalian::with(['user', 'barang', 'pengajuan'])->orderBy('created_at', 'desc')->get();
 
         // Return view dengan data pengembalian
         return view('admin.pengembalian', compact('pengembalian'));
@@ -86,5 +86,13 @@ class AdminController extends Controller
 
         // Redirect kembali dengan pesan sukses
         return redirect()->route('admin.pengembalian')->with('success', 'Pengembalian telah ditolak.');
+    }
+
+    public function hapuspengajuan($id)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+        $pengajuan->delete();
+    
+        return redirect()->route('admin.peminjaman')->with('success','Data berhasil dihapus');
     }
 }

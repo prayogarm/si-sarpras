@@ -2,10 +2,8 @@
 
 @section('content')
 
-<!-- Begin Page Content -->
 <div class="container-fluid">
 
-  <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">Data Peminjaman</h1>
   @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
@@ -49,10 +47,14 @@
 
                               <form action="{{ route('admin.peminjaman.reject', $row->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                <button type="submit" class="btn btn-warning btn-sm">Reject</button>
                               </form>
                             @else
-                              <span class="badge badge-info">{{ ucfirst($row->status) }}</span>
+                              <form action="{{ route('admin.peminjaman.hapuspeminjaman', $row->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus?');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" type="submit">Delete Data</button>
+                              </form>
                             @endif
                         </td>
                       </tr>

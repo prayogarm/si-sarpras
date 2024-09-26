@@ -19,7 +19,10 @@ class PengembalianController extends Controller
                                 ->with('barang')
                                 ->get();
         // Mendapatkan semua pengembalian yang dilakukan oleh user yang sedang login
-        $pengembalians = Pengembalian::where('user_id', Auth::id())->with('barang', 'pengajuan')->get();
+        $pengembalians = Pengembalian::where('user_id', Auth::id())
+                                        ->with('barang', 'pengajuan')
+                                        ->orderBy('created_at', 'desc')
+                                        ->get();
 
         // Return view dengan data pengembalian
         return view('pengembalian', compact('pengembalians','pengajuans'));

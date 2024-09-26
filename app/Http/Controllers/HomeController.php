@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
+use App\Models\Pengajuan;
+use App\Models\Pengembalian;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -24,6 +28,11 @@ class HomeController extends Controller
      */
     public function index(): View
     {
-        return view('home');
+        $barang = Barang::count();
+        $peminjaman = Pengajuan::count();
+        $pengembalian = Pengembalian::count();
+        $pengguna = User::count();
+
+        return view('home', compact('barang','peminjaman','pengembalian','pengguna'));
     }
 }

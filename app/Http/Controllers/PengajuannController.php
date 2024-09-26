@@ -15,7 +15,7 @@ class PengajuannController extends Controller
     public function index()
     {
         // Mendapatkan semua pengajuan yang dilakukan oleh user yang sedang login
-        $pengajuans = Pengajuan::where('user_id', Auth::id())->with('barang')->get();
+        $pengajuans = Pengajuan::where('user_id', Auth::id())->with('barang')->orderBy('created_at', 'desc')->get();
         $barangs = Barang::all();
 
         // Return view dengan data pengajuan

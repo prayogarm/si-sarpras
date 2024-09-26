@@ -37,7 +37,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->user->name }}</td>
                 <td>{{ $item->barang->nama_barang }}</td>
-                <td>{{ $item->tanggal_peminjaman }}</td>
+                <td>{{ $item->tanggal_pengajuan }}</td>
                 <td>{{ ucfirst($item->status) }}</td>
             </tr>
             @endforeach

@@ -68,12 +68,12 @@
     @endrole
 
     @hasanyrole('Guru|Siswa|Pengawas')
-        <li class="nav-item {{ request()->is('pengajuann.index') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route ('pengajuann.index')}}">
+        <li class="nav-item {{ request()->is('pengajuan') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route ('pengajuan.index')}}">
                 <i class="fas fa-fw fa-arrow-right"></i>
                 <span>Ajukan Peminjaman</span></a>
         </li>
-        <li class="nav-item {{ request()->is('pengembalian.index') ? 'active' : '' }}">
+        <li class="nav-item {{ request()->is('pengembalian') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route ('pengembalian.index')}}">
                 <i class="fas fa-fw fa-arrow-left"></i>
                 <span>Ajukan Pengembalian</span></a>

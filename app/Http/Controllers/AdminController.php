@@ -95,4 +95,12 @@ class AdminController extends Controller
     
         return redirect()->route('admin.peminjaman')->with('success','Data berhasil dihapus');
     }
+
+    public function hapuspengembalian($id)
+    {
+        $pengembalian = Pengembalian::findOrFail($id);
+        $pengembalian->delete();
+    
+        return redirect()->route('admin.pengembalian')->with('success','Data berhasil dihapus');
+    }
 }

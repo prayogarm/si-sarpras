@@ -26,6 +26,7 @@
                         <th>Nama User</th>
                         <th>Nama Barang</th>
                         <th>Tanggal Peminjaman</th>
+                        <th>Kategori</th>
                         <th>Status</th>                
                         <th style="width: 140px">Action</th>
                       </tr>
@@ -37,15 +38,16 @@
                         <td>{{ $row->user->name}}</td>
                         <td>{{ $row->barang->nama_barang }}</td>
                         <td>{{ $row->tanggal_pengajuan }}</td>
+                        <td>{{ $row->barang->kategori }}</td>
                         <td>{{ ucfirst($row->status) }}</td>
                         <td style="text-align: center">
                             @if($row->status == 'pending')
-                              <form action="{{ route('admin.peminjaman.approve', $row->id) }}" method="POST" style="display:inline-block;">
+                              <form action="{{ route('admin.peminjaman.approve', $row->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Setujui Peminjaman Barang?');">
                                 @csrf
                                 <button type="submit" class="btn btn-success btn-sm">Approve</button>
                               </form>
 
-                              <form action="{{ route('admin.peminjaman.reject', $row->id) }}" method="POST" style="display:inline-block;">
+                              <form action="{{ route('admin.peminjaman.reject', $row->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Tolak Peminjaman Barang?');">
                                 @csrf
                                 <button type="submit" class="btn btn-warning btn-sm">Reject</button>
                               </form>

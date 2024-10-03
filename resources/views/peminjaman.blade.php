@@ -58,7 +58,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('pengajuann.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('pengajuan.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <select name="barang_id" id="barang_id" class="form-control" required>
             <option value="">-- Pilih Barang --</option>

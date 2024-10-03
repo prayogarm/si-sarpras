@@ -41,17 +41,21 @@
                       <td>{{ $row->status }}</td>
                       <td style="text-align: center">
                         @if($row->status == 'pending')
-                            <form action="{{ route('admin.pengembalian.approve', $row->id) }}" method="POST" style="display:inline-block;">
+                            <form action="{{ route('admin.pengembalian.approve', $row->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Setujui Pengembalian Barang?');">
                               @csrf
                               <button type="submit" class="btn btn-success btn-sm">Approve</button>
                             </form>
 
-                            <form action="{{ route('admin.pengembalian.reject', $row->id) }}" method="POST" style="display:inline-block;">
+                            <form action="{{ route('admin.pengembalian.reject', $row->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Tolak Pengembalian Barang?');">
                               @csrf
                               <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                             </form>
                           @else
-                            <span class="badge badge-info">{{ ucfirst($row->status) }}</span>
+                            <form action="{{ route('admin.pengembalian.hapuspengembalian', $row->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus?');">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-danger btn-sm" type="submit">Delete Data</button>
+                            </form>
                           @endif
                       </td>
                     </tr>

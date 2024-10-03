@@ -10,14 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class PengajuanController extends Controller
 {
     /**
-     * Menampilkan daftar pengajuan peminjaman yang dilakukan user.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of the resource.
      */
     public function index()
     {
         // Mendapatkan semua pengajuan yang dilakukan oleh user yang sedang login
-        $pengajuans = Pengajuan::where('user_id', Auth::id())->with('barang')->get();
+        $pengajuans = Pengajuan::where('user_id', Auth::id())->with('barang')->orderBy('created_at', 'desc')->get();
         $barangs = Barang::all();
 
         // Return view dengan data pengajuan
@@ -25,9 +23,7 @@ class PengajuanController extends Controller
     }
 
     /**
-     * Menampilkan form pengajuan peminjaman barang.
-     *
-     * @return \Illuminate\Http\Response
+     * Show the form for creating a new resource.
      */
     public function create()
     {
@@ -35,10 +31,7 @@ class PengajuanController extends Controller
     }
 
     /**
-     * Menyimpan data pengajuan peminjaman barang.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
@@ -57,6 +50,38 @@ class PengajuanController extends Controller
         ]);
 
         // Redirect ke halaman lain dengan pesan sukses
-        return redirect()->route('peminjaman')->with('success', 'Pengajuan peminjaman berhasil dibuat.');
+        return redirect()->route('pengajuan.index')->with('success', 'Pengajuan peminjaman berhasil dibuat.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

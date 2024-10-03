@@ -39,21 +39,23 @@
                         <td>
                             @if(!empty($row->getRoleNames()))
                               @foreach($row->getRoleNames() as $v)
-                                <label class="badge bg-success">{{ $v }}</label>
+                                <label>{{ $v }}</label>
                               @endforeach
                             @endif
                         </td>
                         <td style="text-align: center">
                             <div class="d-sm-inline-block">
-                              <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#editModal{{$row->id}}">
+                              <a class="btn btn-primary btn-sm" href="{{route('users.edit',$row->id)}}">
                                   <i class="fas fa-pen"></i>
                               </a>
                             </div>
 
                             <div class="d-sm-inline-block">
-                              <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#deleteModal{{$row->id}}">
-                                  <i class="fas fa-trash"></i>
-                              </a>
+                              <form action="{{route('users.destroy',$row->id)}}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus?');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+                              </form>
                             </div>
                         </td>
                       </tr>

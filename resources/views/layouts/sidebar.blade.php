@@ -36,10 +36,20 @@
                 <i class="fas fa-fw fa-tools"></i>
                 <span>Data Barang</span></a>
         </li>
-        <li class="nav-item {{ request()->is('admin/peminjaman') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.peminjaman') }}">
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-arrow-left"></i>
-                <span>Data Peminjaman</span></a>
+                <span>Data Peminjaman</span>
+            </a>
+            <div id="collapseTwo" class="collapse {{ request()->is('admin/laporan/peminjaman') ? 'show' : '' }} {{ request()->is('admin/laporan/pengembalian') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Peminjaman Barang</h6>
+                    <a class="collapse-item {{ request()->is('admin/peminjaman') ? 'active' : '' }}" href="{{ route('admin.peminjaman') }}">Semua Peminjaman</a>
+                    <a class="collapse-item {{ request()->is('admin/peminjaman/habispakai') ? 'active' : '' }}" href="{{ route('admin.peminjamanhp') }}">Barang Habis Pakai</a>
+                    <a class="collapse-item {{ request()->is('admin/peminjaman/tidakhabispakai') ? 'active' : '' }}" href="{{ route('admin.peminjamanthp') }}">Barang Tidak Habis Pakai</a>
+                </div>
+            </div>
         </li>
         <li class="nav-item {{ request()->is('admin/pengembalian') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.pengembalian') }}">

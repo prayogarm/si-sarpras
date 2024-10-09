@@ -17,9 +17,37 @@ class AdminController extends Controller
     {
         // Mendapatkan semua data peminjaman dengan relasi user dan barang
         $pengajuan = Pengajuan::with(['user', 'barang'])->orderBy('created_at', 'desc')->get();
-
+                                    
         // Return view dengan data peminjaman
         return view('admin.peminjaman', compact('pengajuan'));
+    }
+
+    /**
+     * Tampilkan semua data peminjaman barang habis pakai oleh user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function peminjamanhp(){
+        $peminjamanhp = Pengajuan::with(['user', 'barang'])->whereHas('barang', function ($query) {
+                                        $query->where('kategori', 'Habis Pakai');
+                                    })->orderBy('created_at', 'desc')
+                                    ->get();
+
+        return view('admin.peminjamanhp', compact('peminjamanhp'));   
+    }
+
+    /**
+     * Tampilkan semua data peminjaman barang habis pakai oleh user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function peminjamanthp(){
+        $peminjamanthp = Pengajuan::with(['user', 'barang'])->whereHas('barang', function ($query) {
+                                        $query->where('kategori', 'Tidak Habis Pakai');
+                                    })->orderBy('created_at', 'desc')
+                                    ->get();
+
+        return view('admin.peminjamanthp', compact('peminjamanthp'));   
     }
 
     /**

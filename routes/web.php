@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PengembalianController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,8 @@ Route::middleware('auth', 'role:Admin')->prefix('admin')->group(function () {
     Route::resource('barang', BarangController::class);
 
     Route::get('/peminjaman', [AdminController::class, 'peminjaman'])->name('admin.peminjaman');
+    Route::get('/peminjaman/habispakai', [AdminController::class, 'peminjamanhp'])->name('admin.peminjamanhp');
+    Route::get('/peminjaman/tidakhabispakai', [AdminController::class, 'peminjamanthp'])->name('admin.peminjamanthp');
     Route::get('/pengembalian', [AdminController::class, 'pengembalian'])->name('admin.pengembalian');
     Route::post('/peminjaman/{id}/approve', [AdminController::class, 'approve'])->name('admin.peminjaman.approve');
     Route::delete('/peminjaman/{id}', [AdminController::class, 'hapuspengajuan'])->name('admin.peminjaman.hapuspeminjaman');

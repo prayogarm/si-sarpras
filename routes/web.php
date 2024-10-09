@@ -34,7 +34,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 // Route Admin
 Route::middleware('auth', 'role:Admin')->prefix('admin')->group(function () {
     Route::resource('barang', BarangController::class);
-
     Route::get('/peminjaman', [AdminController::class, 'peminjaman'])->name('admin.peminjaman');
     Route::get('/peminjaman/habispakai', [AdminController::class, 'peminjamanhp'])->name('admin.peminjamanhp');
     Route::get('/peminjaman/tidakhabispakai', [AdminController::class, 'peminjamanthp'])->name('admin.peminjamanthp');

@@ -47,6 +47,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'kelas' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
@@ -100,6 +101,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'kelas' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
@@ -111,7 +113,7 @@ class UserController extends Controller
         }else{
             $input = Arr::except($input,array('password'));    
         }
-    
+     
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();

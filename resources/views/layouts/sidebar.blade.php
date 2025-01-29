@@ -1,9 +1,9 @@
 <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('home')}}">
         <div class="sidebar-brand-icon">
-            <img src="http://127.0.0.1:8000/dist/img/logo.png"
+            <img src="http://127.0.0.1:8000/assets/img/logo.png"
                 style="float: left;max-height: 45px;width: auto;"
                 class="brand-image img-circle" style="opacity: .9"
             >
@@ -20,23 +20,38 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
+    <li class="nav-item {{ request()->is('profile') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('profile')}}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>User Profile</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
-    </div>
+        Managemen Barang
+    </div> 
 
     <!-- Nav Item - Pages Collapse Menu -->
     @role('Admin')
-        <li class="nav-item {{ request()->is('barang') ? 'active' : '' }}">
+        <li class="nav-item {{ request()->is('admin/barang') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('barang.index') }}">
-                <i class="fas fa-fw fa-tools"></i>
-                <span>Data Barang</span></a>
+                <i class="fas fa-fw fa-arrow-left"></i>
+                <span>Data Barang Masuk</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ request()->is('admin/peminjaman/habispakai') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.peminjamanhp') }}">
+                <i class="fas fa-fw fa-arrow-right"></i>
+                <span>Data Barang Keluar</span></a>
+        </li>
+        <li class="nav-item {{ request()->is('admin/peminjaman/tidakhabispakai') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.peminjamanthp') }}">
+                <i class="fas fa-fw fa-tools"></i>
+                <span>Data Peminjaman</span></a>
+        </li>
+        {{-- <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-arrow-left"></i>
@@ -50,11 +65,11 @@
                     <a class="collapse-item {{ request()->is('admin/peminjaman/tidakhabispakai') ? 'active' : '' }}" href="{{ route('admin.peminjamanthp') }}">Barang Tidak Habis Pakai</a>
                 </div>
             </div>
-        </li>
+        </li> --}}
         <li class="nav-item {{ request()->is('admin/pengembalian') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.pengembalian') }}">
                 <i class="fas fa-fw fa-arrow-right"></i>
-                <span>Data Pengembalian</span></a>
+                <span>Pengembalian Barang</span></a>
         </li>
         <li class="nav-item {{ request()->is('admin/users') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('users.index') }}">
@@ -81,12 +96,17 @@
         <li class="nav-item {{ request()->is('pengajuan') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route ('pengajuan.index')}}">
                 <i class="fas fa-fw fa-arrow-right"></i>
-                <span>Ajukan Peminjaman</span></a>
+                <span>Data Barang Pinjam</span></a>
         </li>
         <li class="nav-item {{ request()->is('pengembalian') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route ('pengembalian.index')}}">
                 <i class="fas fa-fw fa-arrow-left"></i>
                 <span>Ajukan Pengembalian</span></a>
+        </li>
+        <li class="nav-item {{ request()->is('riwayat') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route ('riwayat')}}">
+                <i class="fas fa-fw fa-arrow-left"></i>
+                <span>Riwayat Peminjaman</span></a>
         </li>
     @endhasanyrole
     

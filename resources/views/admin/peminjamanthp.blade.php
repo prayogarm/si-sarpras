@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
 
-  <h1 class="h3 mb-2 text-gray-800">Peminjaman Barang Tidak Habis Pakai</h1>
+  <h1 class="h3 mb-2 text-gray-800">Data Peminjaman</h1>
   @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
     <button type="button" class="close" data-dismiss="alert">×</button>	
@@ -52,11 +52,11 @@
                                 <button type="submit" class="btn btn-warning btn-sm">Reject</button>
                               </form>
                             @else
-                              <form action="{{ route('admin.peminjaman.hapuspeminjaman', $row->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm" type="submit">Delete Data</button>
-                              </form>
+                              <div class="d-sm-inline-block">
+                                <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#showModal{{$row->id}}">
+                                    <i class="fas fa-eye"> </i> Lihat Detail
+                                </a>
+                              </div>
                             @endif
                         </td>
                       </tr>
@@ -67,6 +67,55 @@
       </div>
   </div>
 </div>
+
+@foreach ($peminjamanthp as  $row)
+<div class="modal fade" id="showModal{{$row->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Lihat Detail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="title">Nama Peminjam</label>
+            <input type="text" class="form-control" disabled value="{{ $row->user->name}}">
+          </div>
+          <div class="row">
+            <div class="form-group col">
+              <label for="title">Nama Barang</label>
+              <input type="text" class="form-control" disabled value="{{ $row->barang->nama_barang }}">
+            </div>
+            <div class="form-group col">
+              <label for="title">Jumlah</label>
+              <input type="text" class="form-control" disabled value="{{ $row->jumlah_pinjaman }}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="title">Tanggal Peminjaman</label>
+            <input type="text" class="form-control" disabled value="{{ $row->tanggal_pengajuan }}">
+          </div>
+          
+          @if ($row->pengembalian)
+            <div class="form-group">
+              <label for="title">Tanggal Pengembalian</label>
+              <input type="text" class="form-control" disabled value="{{ $row->pengembalian->tanggal_pengembalian }}">
+            </div>
+            <div class="form-group">
+              <label for="title">Status</label>
+              <input type="text" class="form-control" disabled value="{{ ucfirst($row->pengembalian->status) }}" dis>
+            </div>
+          @endif
+      </div>
+          <div class="modal-footer justify-content-end">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+    </div>
+  </div>
+</div>
+@endforeach
 
 @push('script')
 

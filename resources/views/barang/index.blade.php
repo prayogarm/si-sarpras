@@ -24,13 +24,13 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                       <tr>
-                        <th style="width: 15px">NO</th>
+                        <th >NO</th>
                         <th>Nama Barang</th>
                         <th>Kode Barang</th>
                         <th>Kategori</th>
-                        <th>Deskripsi</th>
-                        <th>Jumlah</th>
-                        <th>Kondisi</th>
+                        <th>Spesifikasi</th>
+                        <th>Stok Barang</th>
+                        <th>Satuan</th>
                         <th style="width: 140px">Action</th>
                       </tr>
                   </thead>
@@ -41,9 +41,9 @@
                         <td>{{ $row->nama_barang }}</td>
                         <td>{{ $row->kode_barang }}</td>
                         <td>{{ $row->kategori }}</td>
-                        <td>{{ $row->deskripsi }}</td>
+                        <td>{{ $row->spesifikasi }}</td>
                         <td>{{ $row->jumlah }}</td>
-                        <td>{{ $row->kondisi }}</td>
+                        <td>{{ $row->satuan }}</td>
                         <td style="text-align: center">
                             <div class="d-sm-inline-block">
                               <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#editModal{{$row->id}}">
@@ -87,21 +87,30 @@
               <input type="text" class="form-control" name="kode_barang" required>
             </div>
             <div class="form-group">
-              <label for="title">Barang Habis Pakai</label>
-              <input type="checkbox" class="form-control" name="kategori" style="width: 25px; height:25px" required>
-              
+              <label for="kategori">Kategori Barang</label>
+              <select class="form-control" name="kategori" id="kategori" required>
+                <option value="" disabled selected>Pilih Kategori</option>
+                <option value="Habis Pakai">Habis Pakai</option>
+                <option value="Tidak Habis Pakai">Tidak Habis Pakai</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="title">Deskripsi</label>
-              <input type="text" class="form-control" name="deskripsi" required>
+              <label for="title">Spesifikasi</label>
+              <input type="text" class="form-control" name="spesifikasi" required>
             </div>
             <div class="form-group">
               <label for="title">Jumlah</label>
               <input type="text" class="form-control" name="jumlah" required>
             </div>
             <div class="form-group">
-              <label for="title">Kondisi</label>
-              <input type="text" class="form-control" name="kondisi" required>
+              <label for="satuan">Satuan Barang</label>
+              <select class="form-control" name="satuan" id="satuan" required>
+                <option value="" disabled selected>Pilih Satuan</option>
+                <option value="Unit">Unit</option>
+                <option value="PCS">PCS</option>
+                <option value="KTK">Kotak</option>
+                <option value="RIM">Rim</option>
+              </select>
             </div>
         </div>
             <div class="modal-footer justify-content-between">
@@ -137,20 +146,30 @@
               <input type="text" class="form-control" name="kode_barang" required value="{{$row->kode_barang}}">
             </div>
             <div class="form-group">
-              <label for="title">Kategori Barang</label>
-              <input type="text" class="form-control" name="kategori" required value="{{$row->kategori}}">
+              <label for="kategori">Kategori Barang</label>
+              <select class="form-control" name="kategori" id="kategori" required value="{{$row->kategori}}"> 
+                <option value="{{$row->kategori}}" disabled>{{$row->kategori}}</option>
+                <option value="Habis Pakai">Habis Pakai</option>
+                <option value="Tidak Habis Pakai">Tidak Habis Pakai</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="title">Deskripsi</label>
-              <input type="text" class="form-control" name="deskripsi" required value="{{$row->deskripsi}}">
+              <label for="title">Spesifikasi</label>
+              <input type="text" class="form-control" name="spesifikasi" required value="{{$row->spesifikasi}}">
             </div>
             <div class="form-group">
               <label for="title">Jumlah</label>
               <input type="text" class="form-control" name="jumlah" required value="{{$row->jumlah}}">
             </div>
             <div class="form-group">
-              <label for="title">Kondisi</label>
-              <input type="text" class="form-control" name="kondisi" required value="{{$row->kondisi}}">
+              <label for="satuan">Satuan Barang</label>
+              <select class="form-control" name="satuan" id="satuan" required value="{{$row->satuan}}"> 
+                <option value="{{$row->satuan}}" disabled>{{$row->satuan}}</option>
+                <option value="Unit">Unit</option>
+                <option value="PCS">PCS</option>
+                <option value="KTK">Kotak</option>
+                <option value="RIM">Rim</option>
+              </select>
             </div>
         </div>
             <div class="modal-footer justify-content-between">

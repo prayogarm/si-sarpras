@@ -21,6 +21,11 @@ class PengembalianController extends Controller
         // Mendapatkan semua pengembalian yang dilakukan oleh user yang sedang login
         $pengembalians = Pengembalian::where('user_id', Auth::id())
                                         ->with('barang', 'pengajuan')
+                                        ->where(function ($query) {
+                                            $query->where('status', 'Pending')
+                                                ->orWhere('status', 'Rejected');
+                                        })
+                                        ->orWhere('status', 'Rejected')
                                         ->orderBy('created_at', 'desc')
                                         ->get();
 
@@ -45,6 +50,7 @@ class PengembalianController extends Controller
         $request->validate([
             'pengajuan_id' => 'required|exists:pengajuans,id',
             'tanggal_pengembalian' => 'required|date',
+            'jumlah_pinjaman' => 'required|integer|min:1',
         ]);
 
         // Simpan data pengembalian ke database
@@ -53,6 +59,7 @@ class PengembalianController extends Controller
             'pengajuan_id' => $request->pengajuan_id,
             'barang_id' => Pengajuan::find($request->pengajuan_id)->barang_id,
             'tanggal_pengembalian' => $request->tanggal_pengembalian,
+            'jumlah_pinjaman' => $request->jumlah_pinjaman,
             'status' => 'pending',
         ]);
 

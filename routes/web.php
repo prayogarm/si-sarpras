@@ -30,6 +30,7 @@ Route::get('/', function () {
 Auth::routes();
   
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 
 // Route Admin
 Route::middleware('auth', 'role:Admin')->prefix('admin')->group(function () {
@@ -56,7 +57,9 @@ Route::middleware('auth', 'role:Admin')->prefix('admin')->group(function () {
     Route::resource('users', UserController::class);
 });
 
+// Route Pengguna
 Route::middleware('auth', 'role:Siswa|Guru|Karyawan')->group(function () {
     Route::resource('pengajuan', PengajuanController::class);
     Route::resource('pengembalian', PengembalianController::class);
+    Route::get('/riwayat', [HomeController::class, 'riwayat'])->name('riwayat');
 });

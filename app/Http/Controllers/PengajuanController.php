@@ -15,8 +15,14 @@ class PengajuanController extends Controller
     public function index()
     {
         // Mendapatkan semua pengajuan yang dilakukan oleh user yang sedang login
-        $pengajuans = Pengajuan::where('user_id', Auth::id())->with('barang')->orderBy('created_at', 'desc')->get();
-        $barangs = Barang::all();
+        $pengajuans = Pengajuan::where('user_id', Auth::id())
+                                    ->with('barang')
+                                    ->where(function ($query) {
+                                        $query->where('status', 'Pending')
+                                            ->orWhere('status', 'Rejected');
+                                    })
+                                    ->orderBy('created_at', 'desc')->get();
+        $barangs = Barang::orderby('id','desc')->get();
 
         // Return view dengan data pengajuan
         return view('peminjaman', compact('pengajuans', 'barangs'));
@@ -39,6 +45,7 @@ class PengajuanController extends Controller
         $request->validate([
             'barang_id' => 'required|exists:barangs,id',
             'tanggal_pengajuan' => 'required|date',
+            'jumlah_pinjaman' => 'required|integer|min:1',
         ]);
 
         // Simpan data pengajuan ke database
@@ -46,6 +53,7 @@ class PengajuanController extends Controller
             'user_id' => Auth::id(),
             'barang_id' => $request->barang_id,
             'tanggal_pengajuan' => $request->tanggal_pengajuan,
+            'jumlah_pinjaman' => $request->jumlah_pinjaman,
             'status' => 'pending',
         ]);
 

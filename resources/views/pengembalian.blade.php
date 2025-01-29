@@ -14,31 +14,36 @@
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <a class="btn btn-sm btn-info card-title m-0" type="button" data-toggle="modal" data-target="#addModal">
-          Tambah Data
-        </a>
-      </div>
       <div class="card-body">
           <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                       <tr>
                         <th style="width: 15px">NO</th>
+                        <th>Kode Barang</th>
                         <th>Nama Barang</th>
                         <th>Nama Peminjam</th>
-                        <th>Tanggal Pengembalian</th>
+                        <th>Tanggal Peminjaman</th>
                         <th>Status</th>
+                        <th>Action</th>
                       </tr>
                   </thead>
                   <tbody>
-                    @foreach ($pengembalians as $key => $row)     
+                    @foreach ($pengajuans as $key => $row)     
                       <tr>
                         <td>{{ ++$key }}</td>
+                        <td>{{ $row->barang->kode_barang }}</td>
                         <td>{{ $row->barang->nama_barang }}</td>
                         <td>{{ $row->user->name }}</td>
-                        <td>{{ $row->tanggal_pengembalian }}</td>
+                        <td>{{ $row->tanggal_pengajuan }}</td>
                         <td>{{ ucfirst($row->status) }}</td>
+                        <td style="text-align: center">
+                          <div class="d-sm-inline-block">
+                            <a class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-toggle="modal" data-target="#addModal{{$row->id}}">
+                                <b>Kembalikan</b>
+                            </a>
+                          </div>
+                      </td>
                       </tr>
                     @endforeach
                   </tbody>
@@ -48,7 +53,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+@foreach ($pengajuans as $item)
+<div class="modal fade" id="addModal{{$item->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -58,15 +64,24 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="form-group col">
+          <label for="title">Nama Barang</label>
+          <input type="text" class="form-control" name="nama_barang" required value="{{$item->barang->nama_barang}}" disabled>
+        </div>
+        <div class="form-group col">
+          <label for="title">Kode Barang</label>
+          <input type="text" class="form-control" name="kode_barang" required value="{{$item->barang->kode_barang}}" disabled>
+        </div>
         <form action="{{ route('pengembalian.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
-          <label class="">Pilih Peminjaman</label>
-          <select name="pengajuan_id" id="pengajuan_id" class="form-control" required>
-            <option value="">-- Pilih Barang --</option>
-            @foreach($pengajuans as $pengajuan)
-                <option value="{{ $pengajuan->id }}">{{ $pengajuan->barang->nama_barang }} (Dipinjam pada {{ $pengajuan->tanggal_pengajuan }})</option>
-            @endforeach
-          </select>
+          <div class="form-group col">
+            <label for="title">Tanggal Peminjaman</label>
+            <input type="text" class="form-control" name="pengajuan_id" required value="{{$item->tanggal_pengajuan}}" disabled>
+          </div>
+          <div class="form-group col">
+            <label for="title">Jumlah Pengembalian</label>
+            <input type="text" class="form-control" name="jumlah_pinjaman" required value="{{$item->jumlah_pinjaman}}" disabled>
+          </div>
           <div class="form-group">
             <label class="mt-3">Tanggal Pengembalian</label>
             <input type="date" class="form-control" name="tanggal_pengembalian" required>
@@ -80,7 +95,7 @@
     </div>
   </div>
 </div>
-
+@endforeach
 
 
 @push('script')

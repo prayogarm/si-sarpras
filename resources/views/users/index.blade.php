@@ -25,6 +25,7 @@
                       <tr>
                         <th style="width: 15px">NO</th>
                         <th>Nama Pengguna</th>
+                        <th>Kelas</th>
                         <th>Username</th>
                         <th>Peran</th>
                         <th style="width: 140px">Action</th>
@@ -35,6 +36,7 @@
                       <tr>
                         <td>{{ ++$key }}</td>
                         <td>{{ $row->name }}</td>
+                        <td>{{ $row->kelas }}</td>
                         <td>{{ $row->email }}</td>
                         <td>
                             @if(!empty($row->getRoleNames()))

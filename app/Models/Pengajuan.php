@@ -13,6 +13,7 @@ class Pengajuan extends Model
         'user_id',
         'barang_id',
         'tanggal_pengajuan',
+        'jumlah_pinjaman',
         'status',
     ];
 
@@ -24,5 +25,10 @@ class Pengajuan extends Model
     public function barang()
     {
         return $this->belongsTo(Barang::class);
+    }
+
+    public function pengembalian()
+    {
+        return $this->hasOne(Pengembalian::class, 'pengajuan_id'); 
     }
 }

@@ -14,6 +14,7 @@ class Pengembalian extends Model
         'barang_id',
         'pengajuan_id',  // Menghubungkan ke pengajuan
         'tanggal_pengembalian',
+        'jumlah_pinjaman',
         'status',
     ];
 

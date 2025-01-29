@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->string('kode_barang');
             $table->string('kategori');
-            $table->text('deskripsi');
+            $table->text('spesifikasi');
             $table->integer('jumlah');
-            $table->string('kondisi');
+            $table->string('satuan');
             $table->timestamps();
         });
     }

@@ -23,7 +23,8 @@ return new class extends Migration
                   ->constrained('pengajuans')
                   ->onDelete('cascade');
             $table->date('tanggal_pengembalian');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->integer('jumlah_pinjaman');
+            $table->enum('status', ['pending', 'approved', 'rejected', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

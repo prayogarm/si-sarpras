@@ -8,6 +8,7 @@ use App\Models\Pengembalian;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -34,5 +35,25 @@ class HomeController extends Controller
         $pengguna = User::count();
 
         return view('home', compact('barang','peminjaman','pengembalian','pengguna'));
+    }
+
+    public function profile(){
+        return view('profile');
+    }
+
+    public function riwayat(){
+        $pengajuan = Pengajuan::where('user_id', Auth::id())
+                                ->where('status', 'selesai')
+                                ->with('barang')
+                                ->get();
+        // Mendapatkan semua pengembalian yang dilakukan oleh user yang sedang login
+        $pengembalian = Pengembalian::where('user_id', Auth::id())
+                                        ->with('barang', 'pengajuan')
+                                        ->where('status', 'selesai')
+                                        ->orderBy('created_at', 'desc')
+                                        ->get();
+
+        // Return view dengan data pengembalian
+        return view('riwayat', compact('pengembalian','pengajuan'));
     }
 }

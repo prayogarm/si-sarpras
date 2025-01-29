@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use Illuminate\Http\Request;
 use App\Models\Pengajuan;
 use App\Models\Pengembalian;
@@ -42,7 +43,7 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function peminjamanthp(){
-        $peminjamanthp = Pengajuan::with(['user', 'barang'])->whereHas('barang', function ($query) {
+        $peminjamanthp = Pengajuan::with(['user', 'barang', 'pengembalian'])->whereHas('barang', function ($query) {
                                         $query->where('kategori', 'Tidak Habis Pakai');
                                     })->orderBy('created_at', 'desc')
                                     ->get();
@@ -59,9 +60,10 @@ class AdminController extends Controller
     {
         // Mendapatkan semua data pengembalian dengan relasi user, barang, dan pengajuan
         $pengembalian = Pengembalian::with(['user', 'barang', 'pengajuan'])->orderBy('created_at', 'desc')->get();
+        $pengajuan = Pengajuan::with(['user', 'barang'])->orderBy('created_at', 'desc')->get();
 
         // Return view dengan data pengembalian
-        return view('admin.pengembalian', compact('pengembalian'));
+        return view('admin.pengembalian', compact('pengembalian', 'pengajuan'));
     }
 
     public function approve($id)
@@ -69,12 +71,23 @@ class AdminController extends Controller
         // Cari pengajuan berdasarkan id
         $pengajuan = Pengajuan::findOrFail($id);
 
+        $barang = Barang::findOrFail($pengajuan->barang_id);
+
+        // Cek apakah stok cukup
+        if ($barang->jumlah < $pengajuan->jumlah_pinjaman) {
+            return back()->with('error', 'Stok barang tidak mencukupi!');
+        }
+
+        // Kurangi stok barang
+        $barang->jumlah -= $pengajuan->jumlah_pinjaman;
+        $barang->save();
+
         // Set status menjadi approved
         $pengajuan->status = 'approved';
         $pengajuan->save();
 
         // Redirect kembali dengan pesan sukses
-        return redirect()->route('admin.peminjaman')->with('success', 'Pengajuan telah disetujui.');
+        return back()->with('success', 'Pengajuan telah disetujui.');
     }
 
     public function reject($id)
@@ -87,17 +100,27 @@ class AdminController extends Controller
         $pengajuan->save();
 
         // Redirect kembali dengan pesan sukses
-        return redirect()->route('admin.peminjaman')->with('success', 'Pengajuan telah ditolak.');
+        return back()->with('success', 'Pengajuan telah ditolak.');
     }
 
     public function approvepengembalian($id)
     {
         // Cari pengembalian berdasarkan id
         $pengembalian = Pengembalian::findOrFail($id);
+        $pengajuan = Pengajuan::findOrFail($pengembalian->pengajuan_id);
+
+        $barang = Barang::findOrFail($pengembalian->barang_id);
+
+        // Tambahkan stok barang
+        $barang->jumlah += $pengembalian->jumlah_pinjaman;
+        $barang->save();
 
         // Set status menjadi approved
-        $pengembalian->status = 'approved';
+        $pengembalian->status = 'selesai';
         $pengembalian->save();
+        
+        $pengajuan->status = 'selesai';
+        $pengajuan->save();
 
         // Redirect kembali dengan pesan sukses
         return redirect()->route('admin.pengembalian')->with('success', 'Pengembalian telah disetujui.');
@@ -121,7 +144,7 @@ class AdminController extends Controller
         $pengajuan = Pengajuan::findOrFail($id);
         $pengajuan->delete();
     
-        return redirect()->route('admin.peminjaman')->with('success','Data berhasil dihapus');
+        return back()->with('success','Data berhasil dihapus');
     }
 
     public function hapuspengembalian($id)
@@ -129,6 +152,6 @@ class AdminController extends Controller
         $pengembalian = Pengembalian::findOrFail($id);
         $pengembalian->delete();
     
-        return redirect()->route('admin.pengembalian')->with('success','Data berhasil dihapus');
+        return back()->with('success','Data berhasil dihapus');
     }
 }

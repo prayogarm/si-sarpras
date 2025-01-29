@@ -34,9 +34,9 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'kode_barang' => 'required',
             'kategori' => 'required',
-            'deskripsi' => 'required',
+            'spesifikasi' => 'required',
             'jumlah' => 'required',
-            'kondisi' => 'required',
+            'satuan' => 'required',
         ]);
     
         Barang::create($request->all());
@@ -70,9 +70,9 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'kode_barang' => 'required',
             'kategori' => 'required',
-            'deskripsi' => 'required',
+            'spesifikasi' => 'required',
             'jumlah' => 'required',
-            'kondisi' => 'required',
+            'satuan' => 'required',
         ]);
     
         $barang->update($request->all());

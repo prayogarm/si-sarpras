@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Begin Page Content -->
+
 <div class="container-fluid">
 
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Data Pengembalian</h1>
+  <h1 class="h3 mb-2 text-gray-800">Riwayat Peminjaman</h1>
   @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
     <button type="button" class="close" data-dismiss="alert">×</button>	
@@ -16,7 +16,7 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Tabel Pengembalian Barang</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Tabel Riwayat Peminjaman</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -26,10 +26,11 @@
                       <th style="width: 15px">NO</th>
                       <th>Nama User</th>
                       <th>Nama Barang</th>
+                      <th>Jumlah</th>
                       <th>Tanggal Peminjaman</th>
                       <th>Tanggal Pengembalian</th>
                       <th>Status</th>                
-                      <th style="width: 140px">Action</th>
+                      <th style="width: 100px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,7 @@
                       <td>{{ ++$key }}</td>
                       <td>{{ $row->user->name}}</td>
                       <td>{{ $row->barang->nama_barang }}</td>
+                      <td>{{ $row->pengajuan->jumlah_pinjaman }}</td>
                       <td>{{ $row->pengajuan->tanggal_pengajuan }}</td>
                       <td>{{ $row->tanggal_pengembalian }}</td>
                       <td>{{ ucfirst($row->status) }}</td>
@@ -120,10 +122,16 @@
 </div>
 @endforeach
 
-@endsection
 
 @push('script')
 <script>
-
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
 </script>
 @endpush
+
+@endsection

@@ -43,7 +43,7 @@ class LaporanController extends Controller
     {
         $peminjaman = Pengajuan::with('user', 'barang')->get();
         $pdf = PDF::loadView('admin.laporan.cetak-peminjaman', compact('peminjaman'));
-        return $pdf->download('laporan-peminjaman.pdf');
+        return $pdf->stream('laporan-peminjaman.pdf');
     }
 
     // Cetak laporan pengembalian dalam format PDF
@@ -51,6 +51,6 @@ class LaporanController extends Controller
     {
         $pengembalian = Pengembalian::with('user', 'barang')->get();
         $pdf = PDF::loadView('admin.laporan.cetak-pengembalian', compact('pengembalian'));
-        return $pdf->download('laporan-pengembalian.pdf');
+        return $pdf->stream('laporan-pengembalian.pdf');
     }
 }

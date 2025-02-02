@@ -26,6 +26,7 @@
                       <th style="width: 15px">NO</th>
                       <th>Nama User</th>
                       <th>Nama Barang</th>
+                      <th>Tanggal Peminjaman</th>
                       <th>Tanggal Pengembalian</th>
                       <th>Status</th>                
                     </tr>
@@ -36,6 +37,7 @@
                       <td>{{ ++$key }}</td>
                       <td>{{ $row->user->name}}</td>
                       <td>{{ $row->barang->nama_barang }}</td>
+                      <td>{{ $row->pengajuan->tanggal_pengajuan }}</td>
                       <td>{{ $row->tanggal_pengembalian }}</td>
                       <td>{{ $row->status }}</td>
                     </tr>

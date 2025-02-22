@@ -25,8 +25,10 @@
                         <th style="width: 15px">NO</th>
                         <th>Nama User</th>
                         <th>Nama Barang</th>
+                        <th>Jumlah Barang</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Kategori</th>
+                        <th>Guru Bidang Studi</th>                
                         <th>Status</th>                
                         <th style="width: 140px">Action</th>
                       </tr>
@@ -37,8 +39,10 @@
                         <td>{{ ++$key }}</td>
                         <td>{{ $row->user->name}}</td>
                         <td>{{ $row->barang->nama_barang }}</td>
+                        <td>{{ $row->jumlah_pinjaman }}</td>
                         <td>{{ $row->tanggal_pengajuan }}</td>
                         <td>{{ $row->barang->kategori }}</td>
+                        <td>{{ $row->guru }}</td>
                         <td>{{ ucfirst($row->status) }}</td>
                         <td style="text-align: center">
                             @if($row->status == 'pending')

@@ -18,6 +18,8 @@
                     <h4 style="padding-bottom: 8px">{{Auth::user()->kelas}}</h4>
                     <label style="color: black; font-weight:bold;">Email</label>
                     <h4>{{Auth::user()->email}}</h4>
+                    <label style="color: black; font-weight:bold;">Roles</label>
+                    <h4>{{ Auth::user()->roles->first()->name }}</h4>
                 </div>
             </div>
         </div>

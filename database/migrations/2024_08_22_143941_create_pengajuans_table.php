@@ -21,6 +21,7 @@ return new class extends Migration
                   ->onDelete('cascade');
             $table->date('tanggal_pengajuan');
             $table->integer('jumlah_pinjaman');
+            $table->string('guru');
             $table->enum('status', ['pending', 'approved', 'rejected', 'selesai'])->default('pending');
             $table->timestamps();
         });

@@ -133,10 +133,17 @@
             <div class="form-group">
               <input type="text" class="form-control" name="barang_id" required value="{{$row->id}}" required hidden>
             </div>
+
             <div class="form-group">
               <label for="title">Jumlah Pinjaman</label>
               <input type="number" class="form-control" name="jumlah_pinjaman" min="1" required>
             </div>
+
+            <div class="form-group">
+              <label for="title">Guru Bidang Studi</label>
+              <input type="text" class="form-control" name="guru" required>
+            </div>
+
             <div class="form-group">
               <label for="title">Tanggal Pengajuan</label>
               <input type="date" class="form-control" name="tanggal_pengajuan" required>

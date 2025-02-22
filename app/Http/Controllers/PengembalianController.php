@@ -62,7 +62,7 @@ class PengembalianController extends Controller
             'jumlah_pinjaman' => $request->jumlah_pinjaman,
             'status' => 'pending',
         ]);
-
+        
         // Redirect ke halaman lain dengan pesan sukses
         return redirect()->route('pengembalian.index')->with('success', 'Pengajuan pengembalian berhasil dibuat.');
     }

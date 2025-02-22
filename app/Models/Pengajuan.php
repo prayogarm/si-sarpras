@@ -14,6 +14,7 @@ class Pengajuan extends Model
         'barang_id',
         'tanggal_pengajuan',
         'jumlah_pinjaman',
+        'guru',
         'status',
     ];
 

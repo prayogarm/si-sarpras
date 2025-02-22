@@ -46,6 +46,7 @@ class PengajuanController extends Controller
             'barang_id' => 'required|exists:barangs,id',
             'tanggal_pengajuan' => 'required|date',
             'jumlah_pinjaman' => 'required|integer|min:1',
+            'guru' => 'required',
         ]);
 
         // Simpan data pengajuan ke database
@@ -54,6 +55,7 @@ class PengajuanController extends Controller
             'barang_id' => $request->barang_id,
             'tanggal_pengajuan' => $request->tanggal_pengajuan,
             'jumlah_pinjaman' => $request->jumlah_pinjaman,
+            'guru' => $request->guru,
             'status' => 'pending',
         ]);
 

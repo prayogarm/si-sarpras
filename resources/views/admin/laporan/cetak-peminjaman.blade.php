@@ -103,5 +103,9 @@
             @endforeach
         </tbody>
     </table>
+
+    <h5 style="padding-top: 50px;padding-left:30px">Waka Sapras</h5>
+    <h5 style="padding-top: 50px;padding-left:30px">Erfin Fajri, SE</h5>
+    
 </body>
 </html>

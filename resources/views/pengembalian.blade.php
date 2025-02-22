@@ -72,15 +72,18 @@
           <label for="title">Kode Barang</label>
           <input type="text" class="form-control" name="kode_barang" required value="{{$item->barang->kode_barang}}" disabled>
         </div>
+        <div class="form-group col">
+          <label for="title">Tanggal Peminjaman</label>
+          <input type="text" class="form-control" name="tanggal_pengajuan" required value="{{$item->tanggal_pengajuan}}" disabled>
+        </div>
         <form action="{{ route('pengembalian.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group col">
-            <label for="title">Tanggal Peminjaman</label>
-            <input type="text" class="form-control" name="pengajuan_id" required value="{{$item->tanggal_pengajuan}}" disabled>
+            <input type="text" class="form-control" name="pengajuan_id" required value="{{$item->id}}" hidden> 
           </div>
           <div class="form-group col">
             <label for="title">Jumlah Pengembalian</label>
-            <input type="text" class="form-control" name="jumlah_pinjaman" required value="{{$item->jumlah_pinjaman}}" disabled>
+            <input type="text" class="form-control" name="jumlah_pinjaman" required value="{{$item->jumlah_pinjaman}}">
           </div>
           <div class="form-group">
             <label class="mt-3">Tanggal Pengembalian</label>
